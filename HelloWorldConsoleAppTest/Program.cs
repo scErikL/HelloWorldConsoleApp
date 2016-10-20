@@ -11,8 +11,14 @@ namespace HelloWorldConsoleAppTest
         static void Main(string[] args)
         {
 
-            Console.WriteLine("Hello");
+            Person minPerson = new Person();
+
+            minPerson.Name = "Linus";
+            minPerson.Sex = "Male";
+
+            Console.WriteLine("Jag heter {0} och jag är {1}", minPerson.Sex, minPerson.Name );
             Console.ReadKey();
+
 
             //Some change to my code.
 
