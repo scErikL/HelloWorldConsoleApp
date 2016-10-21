@@ -8,15 +8,61 @@ namespace HelloWorldConsoleAppTest
 {
     class Program
     {
+        static List<Book> getBookList()
+        {
+            List<Book> books = new List<Book>();
+            books.Add(new Book() { Author = "Ed McBain", Title = "Da Capo" ,ReleaseYear=1981});
+            books.Add(new Book() { Author = "Ed McBain", Title = "Sångfågel", ReleaseYear = 1982 });
+            books.Add(new Book() { Author = "Patricia Cornwell", Title = "Depraved Heart: A Scarpetta Novel", ReleaseYear = 1991 });
+            books.Add(new Book() { Author = "Patricia Cornwell", Title = "Grön död", ReleaseYear = 1985 });
+            books.Add(new Book() { Author = "Astrid Lindgren", Title = "Bröderna Lejonhjärta", ReleaseYear = 1965 });
+            books.Add(new Book() { Author = "Astrid Lindgren", Title = "Pippi Långstrump på de sju haven", ReleaseYear = 1971 });
+            books.Add(new Book() { Author = "J. R. R. Tolkien", Title = "The Fellowship of the Ring", ReleaseYear = 1954 });
+            books.Add(new Book() { Author = "J. R. R. Tolkien", Title = "The Two Towers", ReleaseYear = 1955 });
+            books.Add(new Book() { Author = "J. R. R. Tolkien", Title = "The Return of the King", ReleaseYear = 1955 });
+            
+            
+            return books;
+        }
         static void Main(string[] args)
         {
+            List<Book> Books = getBookList();
 
-            Person minPerson = new Person();
+            //SELECT:
+            var strQuery = from book in Books select book.Author;
+                //strQuery = Books.Select(b => b.Author);
 
-            minPerson.Name = "Linus";
-            minPerson.Sex = "Male";
+            //foreach (string s in strQuery) Console.WriteLine(s);
+            
+            
+            //WHERE: 
+            var Query = from book in Books 
+                         where book.Author == "Astrid Lindgren"
+                         select book;
+            
+            Query = Books.Where(b => b.Author == "Astrid Lindgren");
 
-            Console.WriteLine("Jag heter {0} och jag är {1}", minPerson.Sex, minPerson.Name );
+            //ORDERBY & ORDERBYDESCENDING
+
+            Query = from book in Books
+                    orderby book.ReleaseYear
+                    select book;
+
+            Query = from book in Books
+                    orderby book.ReleaseYear descending
+                    select book;
+            //Query = Books.OrderBy(b => b.ReleaseYear);
+            //Query = Books.OrderByDescending(b => b.ReleaseYear);
+            
+
+            foreach (Book b in Query)
+            {
+                Console.WriteLine(b.ToString());
+
+            }
+
+           
+
             Console.ReadKey();
 
 
